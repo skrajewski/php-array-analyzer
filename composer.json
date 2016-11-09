@@ -1,0 +1,16 @@
+{
+    "name": "szykra/php-array-order-change",
+    "type": "library",
+    "require": {
+        "phpunit/phpunit": "^5.6",
+        "mockery/mockery": "^0.9.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Szymon Krajewski",
+            "email": "szykra@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
