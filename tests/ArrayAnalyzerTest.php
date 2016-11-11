@@ -1,16 +1,31 @@
 <?php
 
-use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Szykra\ArrayAnalyzer\ArrayAnalyzer;
 
-require_once __DIR__ .'/../src/functions.php';
-
-
-class ArrayReorderCheckTest extends MockeryTestCase
+class ArrayAnalyzerTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @test
+     * @expectedException \Szykra\ArrayAnalyzer\Exception\MismatchArrayException
+     */
+    public function it_should_throw_exception_on_mismatched_array()
+    {
+        ArrayAnalyzer::checkOrderChange([1], [1, 2]);
+    }
+
+    /**
+     * @test
+     * @expectedException \Szykra\ArrayAnalyzer\Exception\MismatchElementsException
+     */
+    public function it_should_throw_exception_on_mismatched_elements()
+    {
+        ArrayAnalyzer::checkOrderChange([1, 3], [1, 2]);
+    }
+
     /** @test */
     public function it_should_return_empty_array_on_empty_array()
     {
-        $result = \Szykra\Helper\array_order_change([], []);
+        $result = ArrayAnalyzer::checkOrderChange([], []);
 
         static::assertCount(0, $result);
     }
@@ -18,7 +33,7 @@ class ArrayReorderCheckTest extends MockeryTestCase
     /** @test */
     public function it_should_return_empty_array_on_the_same_array()
     {
-        $result = \Szykra\Helper\array_order_change([1, 2, 3], [1, 2, 3]);
+        $result = ArrayAnalyzer::checkOrderChange([1, 2, 3], [1, 2, 3]);
 
         static::assertCount(0, $result);
     }
@@ -29,7 +44,7 @@ class ArrayReorderCheckTest extends MockeryTestCase
      */
     public function it_should_return_array_with_information_about_movement($before, $after, $outcome)
     {
-        $result = \Szykra\Helper\array_order_change($before, $after);
+        $result = ArrayAnalyzer::checkOrderChange($before, $after);
 
         static::assertEquals($outcome, $result);
     }
