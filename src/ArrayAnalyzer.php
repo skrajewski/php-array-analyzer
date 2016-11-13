@@ -7,6 +7,18 @@ use Szykra\ArrayAnalyzer\Exception\MismatchElementsException;
 
 class ArrayAnalyzer
 {
+
+    /**
+     * Recognize a single position change of one element in
+     * array by analyzing before and after arrays
+     *
+     * @param array $before
+     * @param array $after
+     * @return array
+     *
+     * @throws MismatchArrayException
+     * @throws MismatchElementsException
+     */
     public static function checkOrderChange(array $before, array $after)
     {
         $count = count($before);
@@ -36,5 +48,29 @@ class ArrayAnalyzer
         }
 
         return [];
+    }
+
+    /**
+     * Check if array is sequential
+     *
+     * @param array $array
+     * @return bool
+     */
+    public static function isSequential(array $array)
+    {
+        $count = count($array);
+
+        return !($count && array_keys($array) !== range(0, $count - 1));
+    }
+
+    /**
+     * Check if array is associative
+     *
+     * @param array $array
+     * @return bool
+     */
+    public static function isAssoc(array $array)
+    {
+        return !static::isSequential($array);
     }
 }

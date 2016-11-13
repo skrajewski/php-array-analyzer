@@ -95,4 +95,22 @@ class ArrayAnalyzerTest extends PHPUnit_Framework_TestCase
             ]
         ];
     }
+
+    /** @test */
+    public function it_should_test_if_array_is_sequential()
+    {
+        static::assertTrue(ArrayAnalyzer::isSequential(['A', 'B', 'C']));
+        static::assertTrue(ArrayAnalyzer::isSequential(['0' => 'A', '1' => 'X']));
+        static::assertFalse(ArrayAnalyzer::isSequential(['A', 'B', 3 => 'C']));
+        static::assertFalse(ArrayAnalyzer::isSequential([1 => 'A', 2 => 'B', 3 => 'C']));
+    }
+
+    /** @test */
+    public function it_should_test_if_array_is_associative()
+    {
+        static::assertFalse(ArrayAnalyzer::isAssoc(['A', 'B', 'C']));
+        static::assertFalse(ArrayAnalyzer::isAssoc(['0' => 'A', '1' => 'X']));
+        static::assertTrue(ArrayAnalyzer::isAssoc(['A', 'B', 3 => 'C']));
+        static::assertTrue(ArrayAnalyzer::isAssoc([1 => 'A', 2 => 'B', 3 => 'C']));
+    }
 }
