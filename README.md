@@ -18,4 +18,4 @@ I needed this kind of functions in my project, so I decided to set all of them i
 
 ## License
 
-The MIT License.
+Copyright 2016. The MIT License.
