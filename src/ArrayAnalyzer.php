@@ -74,25 +74,22 @@ class ArrayAnalyzer
         return !static::isSequential($array);
     }
 
-
-
+    /**
+     * Get max depth for array
+     * For one dimensional array the result is 1
+     *
+     * @param array $array
+     * @return int
+     */
     public static function getMaxDepth(array $array)
     {
         $maxDepth = function (array $array, $depth) use (&$maxDepth) {
-            $arrayElements = array_filter($array, 'is_array');
+            $elements = array_filter($array, 'is_array');
 
-            $toReturn = $depth;
-
-            foreach ($arrayElements as $element) {
-                $toReturn = max($toReturn, $maxDepth($element, $depth + 1));
-            }
-
-            return $toReturn;
+            return array_reduce($elements, function ($max, $element) use ($maxDepth) {
+                return max($max, $maxDepth($element, $max + 1));
+            }, $depth);
         };
-
-//        return array_reduce($arrayElements, function ($max, $element) use ($maxDepth, $depth) {
-//            return max($max, $maxDepth($element, $depth + 1));
-//        }, $depth);
 
         return $maxDepth($array, 1);
     }
