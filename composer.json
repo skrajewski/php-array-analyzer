@@ -1,5 +1,5 @@
 {
-    "name": "szykra/php-array-order-change",
+    "name": "szykra/array-analyzer",
     "type": "library",
     "require-dev": {
         "phpunit/phpunit": "^5.6"
