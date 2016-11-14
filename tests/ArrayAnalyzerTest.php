@@ -99,6 +99,7 @@ class ArrayAnalyzerTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_test_if_array_is_sequential()
     {
+        static::assertTrue(ArrayAnalyzer::isSequential([]));
         static::assertTrue(ArrayAnalyzer::isSequential(['A', 'B', 'C']));
         static::assertTrue(ArrayAnalyzer::isSequential(['0' => 'A', '1' => 'X']));
         static::assertFalse(ArrayAnalyzer::isSequential(['A', 'B', 3 => 'C']));
@@ -108,9 +109,18 @@ class ArrayAnalyzerTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_test_if_array_is_associative()
     {
+        static::assertFalse(ArrayAnalyzer::isAssoc([]));
         static::assertFalse(ArrayAnalyzer::isAssoc(['A', 'B', 'C']));
         static::assertFalse(ArrayAnalyzer::isAssoc(['0' => 'A', '1' => 'X']));
         static::assertTrue(ArrayAnalyzer::isAssoc(['A', 'B', 3 => 'C']));
         static::assertTrue(ArrayAnalyzer::isAssoc([1 => 'A', 2 => 'B', 3 => 'C']));
+    }
+
+    /** @test */
+    public function it_should_test_max_depth_correctly()
+    {
+        static::assertEquals(1, ArrayAnalyzer::getMaxDepth([]));
+        static::assertEquals(1, ArrayAnalyzer::getMaxDepth([0, 1, 2]));
+        static::assertEquals(2, ArrayAnalyzer::getMaxDepth([1, [1, 2]]));
     }
 }

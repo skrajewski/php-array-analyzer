@@ -73,4 +73,27 @@ class ArrayAnalyzer
     {
         return !static::isSequential($array);
     }
+
+
+
+    public static function getMaxDepth(array $array)
+    {
+        $maxDepth = function (array $array, $depth) use (&$maxDepth) {
+            $arrayElements = array_filter($array, 'is_array');
+
+            $toReturn = $depth;
+
+            foreach ($arrayElements as $element) {
+                $toReturn = max($toReturn, $maxDepth($element, $depth + 1));
+            }
+
+            return $toReturn;
+        };
+
+//        return array_reduce($arrayElements, function ($max, $element) use ($maxDepth, $depth) {
+//            return max($max, $maxDepth($element, $depth + 1));
+//        }, $depth);
+
+        return $maxDepth($array, 1);
+    }
 }
